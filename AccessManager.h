@@ -21,6 +21,7 @@ public:
 	DWORD NumOfValue;
 
 	CDataBase (DWORD Num);
+	~CDataBase ();
 
 	void ConstructNOV (SQLWCHAR * szConstr);
 

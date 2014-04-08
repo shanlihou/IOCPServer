@@ -18,6 +18,15 @@ CDataBase::CDataBase (DWORD Num)
 		*(ValueName + i) = (SQLWCHAR *) malloc (sizeof (SQLWCHAR) * 20);
 	}
 }
+CDataBase::~CDataBase()
+{
+	free(ListName);
+	free(ValueName);
+	for(int i = 0; i < NumOfValue; i++)
+	{
+		free(*(ValueName + i));
+	}
+}
 void ShowDBError (HWND hwnd, SQLSMALLINT type, SQLHANDLE sqlHandle)
 {
     TCHAR pStatus[10], pMsg[101];
@@ -154,11 +163,19 @@ void CDataBase::SaveToDataBase (HWND hwnd, int NumOfValue, TCHAR **ValueName)
 
 	result = SQLPrepare (hstmt, (SQLWCHAR*) sql, SQL_NTS);
 
-	if (SQL_ERROR == result){ShowDBStmtError (hwnd, hstmt);return;}
+	if (SQL_ERROR == result)
+	{
+		ShowDBStmtError (hwnd, hstmt);
+		return;
+	}
     
 	result = SQLExecute (hstmt);
 
-	if (SQL_ERROR == result){ShowDBStmtError (hwnd, hstmt);return;}
+	if (SQL_ERROR == result)
+	{
+		ShowDBStmtError (hwnd, hstmt);
+		return;
+	}
 }
 /*
 void CDataBase::Login(HWND hwnd)
