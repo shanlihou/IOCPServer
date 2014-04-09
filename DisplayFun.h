@@ -33,7 +33,7 @@ enum EDIT_ID
 class ObjManager
 {
 public:
-	static ObjManager* getInstance();
+	(static ObjManager*) getInstance();
 	~ObjManager();
 	void ObjInit(HINSTANCE hInstance);
 	void EditDisplay ();

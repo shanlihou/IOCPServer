@@ -233,3 +233,4 @@ void ObjManager::ObjInit(HINSTANCE hInstance)
 {
 	m_hInstance = hInstance;
 }
+ObjManager* ObjManager::m_instance = NULL;
