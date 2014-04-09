@@ -163,7 +163,7 @@ void CDataBase::DeleteDB (HWND hwnd, TCHAR *ValName, TCHAR *SubName)
 
     if (SQL_ERROR == result){ShowDBStmtError (hwnd, hstmt);return;}
 }
-void CDataBase::SaveToDataBase (HWND hwnd, int NumOfValue, TCHAR **ValueName)
+void CDataBase::SaveToDataBase (HWND hwnd, int NumOfValue, TCHAR [5][20])
 {
 	SQLRETURN result;
 	TCHAR szTemp[255];

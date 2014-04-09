@@ -2,9 +2,8 @@
 
 #pragma comment(lib, "ws2_32.lib")
 using namespace std;
-#include "read_only_class.h"
+#include "DisplayFun.h"
 /////////////////////////////////////////////////////////////////////////////////////////////
-extern read_only_edit    CEdit[15];
 CIOCP::CIOCP()
 {
 }
@@ -859,8 +858,8 @@ DWORD CIOCP::CompletionRoutine(LPVOID lp_param)
 				}
 				cout<<"shanlihou:"<<lp_io->buf<<endl;
 				TCHAR *WideSend = MultiToWide(lp_io->buf);
-				(CEdit + 12)->fnAddContent(L"收到:\n");
-				(CEdit + 12)->fnAddContent(WideSend);
+				ObjManager::getInstance()->m_edit[12].fnAddContent(L"收到:\n");
+				ObjManager::getInstance()->m_edit[12].fnAddContent(WideSend);
 				delete []WideSend;
 
 

@@ -9,9 +9,6 @@ HELLOWIN.C -- Displays "Hello, Windows 98!" in client area
 #include <string>
 #include <process.h>
 
-HWND			  hwnd ;
-HWND			  CButton[6];
-read_only_edit    CEdit[15];
 CDataBase		  CDBSocket(2);
 bool			  bSend = false;
 
@@ -44,7 +41,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		return 0 ;
 	}
 
-	hwnd = CreateWindow (szAppName,                  // window class name
+	ObjManager::getInstance()->m_hwndMain = CreateWindow (szAppName,                  // window class name
 		TEXT ("Server"), // window caption
 		WS_OVERLAPPEDWINDOW,        // window style
 		CW_USEDEFAULT,              // initial x position
@@ -56,8 +53,8 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		hInstance,                  // program instance handle
 		NULL) ;                     // creation parameters
 
-	ShowWindow (hwnd, iCmdShow) ;
-	UpdateWindow (hwnd) ;
+	ShowWindow (ObjManager::getInstance()->m_hwndMain, iCmdShow) ;
+	UpdateWindow (ObjManager::getInstance()->m_hwndMain) ;
 	while (GetMessage (&msg, NULL, 0, 0))
 	{
 		TranslateMessage (&msg) ;
@@ -68,29 +65,22 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	HDC					  hdc ;
-	PAINTSTRUCT			  ps ;
-	RECT					  rect ;
 
 	switch (message)
 	{
 	case WM_CREATE:
+		ObjManager::getInstance()->ObjInit(((LPCREATESTRUCT) lParam)->hInstance);
+		ObjManager::getInstance()->EditDisplay ();
 
-		EditDisplay (CEdit, hwnd, ((LPCREATESTRUCT) lParam)->hInstance);
-
-		OnCreate (hwnd, wParam, lParam, CButton);
+		ObjManager::getInstance()->OnCreate();
 		return 0 ;
 
 	case WM_PAINT:
-		hdc = BeginPaint ( hwnd, &ps);
-
-		OnPaint (hdc);
-
-		EndPaint(hwnd, &ps);
+		ObjManager::getInstance()->OnPaint();
 		return 0 ;
 
 	case WM_COMMAND:
-		OnCommand (hwnd, wParam, lParam, &CDBSocket, CEdit, &bSend);
+		ObjManager::getInstance()->OnCommand (wParam, lParam);
 		return 0;
 
 	case WM_DESTROY:

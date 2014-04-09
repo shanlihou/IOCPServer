@@ -1,6 +1,8 @@
 #ifndef DISPLAYFUN_H
 #define DISPLAYFUN_H
 #include <Windows.h>
+
+#include <vector>
 #include "read_only_class.h"
 #include "AccessManager.h"
 enum EDIT_ID
@@ -28,16 +30,32 @@ enum EDIT_ID
 	ID_RECV_INQUIRE
 };
 
+class ObjManager
+{
+public:
+	static ObjManager* getInstance();
+	~ObjManager();
+	void ObjInit(HINSTANCE hInstance);
+	void EditDisplay ();
 
+	void OnCreate ();
 
-void EditDisplay (read_only_edit *CEdit, HWND hwndParent, HINSTANCE hInstance);
+	void OnPaint ();
 
-void ButtonDisplay (HWND *CButton, HWND hwnd, HINSTANCE hInstance);
+	void OnCommand (WPARAM wParam, LPARAM lParam);
 
-void OnCreate (HWND hwnd, WPARAM wParam, LPARAM lParam, HWND *CButton);
+	std::vector<read_only_edit> m_edit;
+	HWND m_hwndMain;
+private:
+	ObjManager();
+	static ObjManager* m_instance;
 
-void OnPaint (HDC hdc);
+	std::vector<HWND> m_button;
+	HINSTANCE m_hInstance;
+	HDC m_hdc;
+	CDataBase m_CDBSocket;
 
-void OnCommand (HWND hwnd, WPARAM wParam, LPARAM lParam, CDataBase *CDBsocket, read_only_edit *ValueName, bool *bSend);
+};
+
 
 #endif

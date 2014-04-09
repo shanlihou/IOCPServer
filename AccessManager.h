@@ -31,7 +31,7 @@ public:
 
 	void DataBaseFree();
 
-	void SaveToDataBase (HWND hwnd, int NumOfValue, TCHAR **ValueName);
+	void SaveToDataBase (HWND hwnd, int NumOfValue, TCHAR ValueName[5][20]);
 
 	int inquireDB(HWND hwnd, TCHAR *ValName, TCHAR *SubName);
 
