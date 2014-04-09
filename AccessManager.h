@@ -31,8 +31,10 @@ public:
 
 	void SaveToDataBase (HWND hwnd, int NumOfValue, TCHAR **ValueName);
 
-	void CDataBase::DeleteDB (HWND hwnd, TCHAR *ValName, TCHAR *SubName);
+	int inquireDB(HWND hwnd, TCHAR *ValName, TCHAR *SubName);
 
-	void Login(HWND hwnd);
+	void DeleteDB (HWND hwnd, TCHAR *ValName, TCHAR *SubName);
+
+	//void Login(HWND hwnd);
 };
 #endif

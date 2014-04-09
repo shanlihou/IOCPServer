@@ -21,11 +21,11 @@ CDataBase::CDataBase (DWORD Num)
 CDataBase::~CDataBase()
 {
 	free(ListName);
-	free(ValueName);
 	for(int i = 0; i < NumOfValue; i++)
 	{
 		free(*(ValueName + i));
 	}
+	free(ValueName);
 }
 void ShowDBError (HWND hwnd, SQLSMALLINT type, SQLHANDLE sqlHandle)
 {
@@ -115,6 +115,28 @@ void CDataBase::ConstructNOV (SQLWCHAR * szConstr)
 		}
 	}
 	wcscat (szConstr, TEXT(") values("));
+}
+int CDataBase::inquireDB (HWND hwnd, TCHAR *ValName, TCHAR *SubName)
+{
+	SQLWCHAR sql[255];
+	memset(sql, 0, sizeof(SQLWCHAR) * 255);
+	DWORD result;
+	
+	wsprintf (sql, TEXT("select %s from %s where %s = '%s'"), SubName, ListName, SubName, ValName);
+
+    result = SQLPrepare (hstmt, (SQLWCHAR*) sql, SQL_NTS);
+
+    if (SQL_ERROR == result){ShowDBStmtError (hwnd, hstmt);return -1;}
+
+    result = SQLExecute (hstmt);
+
+    if (SQL_ERROR == result){ShowDBStmtError (hwnd, hstmt);return -1;}
+
+	if(SQLFetch(hstmt) != SQL_NO_DATA_FOUND)
+	{
+		return 1;
+	}
+	return 0;
 }
 void CDataBase::DeleteDB (HWND hwnd, TCHAR *ValName, TCHAR *SubName)
 {
