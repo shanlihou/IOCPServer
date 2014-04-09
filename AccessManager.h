@@ -16,6 +16,8 @@ public:
 
 	SQLWCHAR * ListName;
 
+	TCHAR fileName[256];
+
 	SQLWCHAR ** ValueName;
 
 	DWORD NumOfValue;

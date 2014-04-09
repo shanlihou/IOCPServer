@@ -56,7 +56,9 @@ void CDataBase::DataBaseInit (HWND hwnd)
 {
     SQLRETURN result;
     //SQLCHAR ConnStrIn[MAXBUFLEN] = "DRIVER={MySQL ODBC 5.1 Driver};SERVER=127.0.0.1;UID=root;PWD=root;DATABASE=test1;CharSet=gbk;";
-    SQLWCHAR ConnStrIn[MAXBUFLEN] = TEXT("Driver={Microsoft Access Driver (*.mdb)};Dbq=c:\\mydatabase.mdb;Uid=Admin;Pwd=;CharSet=gbk;");
+    SQLWCHAR ConnStrIn[MAXBUFLEN];
+
+	wsprintf(ConnStrIn, TEXT("Driver={Microsoft Access Driver (*.mdb)};Dbq=%s;Uid=Admin;Pwd=;CharSet=gbk;"), fileName);
 
 	SQLWCHAR ConnStrOut[MAXBUFLEN];
 

@@ -40,3 +40,10 @@ void read_only_edit:: fnAddContent (TCHAR *szBuf)
 
 	SendMessage (hwndEdit, EM_REPLACESEL, 0, (LPARAM)szBuf);
 }
+TCHAR *MultiToWide(char *multi)
+{
+	int iWLen = MultiByteToWideChar(CP_ACP, 0, multi, strlen(multi), 0, 0 ); // 计算转换后宽字符串的长度。（不包含字符串结束符）  
+    TCHAR *lpwsz = new  TCHAR[iWLen + 1];  
+    MultiByteToWideChar( CP_ACP, 0, multi, strlen(multi), lpwsz, iWLen ); // 正式转换。  
+    return lpwsz;
+}

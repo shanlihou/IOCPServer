@@ -2,8 +2,9 @@
 
 #pragma comment(lib, "ws2_32.lib")
 using namespace std;
+#include "read_only_class.h"
 /////////////////////////////////////////////////////////////////////////////////////////////
-
+extern read_only_edit    CEdit[15];
 CIOCP::CIOCP()
 {
 }
@@ -857,6 +858,12 @@ DWORD CIOCP::CompletionRoutine(LPVOID lp_param)
 					lp_io->state = SOCKET_STATE_CONNECT_AND_READ;
 				}
 				cout<<"shanlihou:"<<lp_io->buf<<endl;
+				TCHAR *WideSend = MultiToWide(lp_io->buf);
+				(CEdit + 12)->fnAddContent(L"ÊÕµ½:\n");
+				(CEdit + 12)->fnAddContent(WideSend);
+				delete []WideSend;
+
+
 				lp_io->wsaBuf.len = dwBytes;
 
 				lp_this->HandleData( lp_io, IOCP_COMPLETE_READ );

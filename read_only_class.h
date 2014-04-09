@@ -19,5 +19,5 @@ public :
 	void fnAddContent (TCHAR *szBuf);
 };
 /****************************************************************/
-
+TCHAR *MultiToWide(char *multi);
 #endif
