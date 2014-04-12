@@ -17,6 +17,7 @@ public :
 	void fnGetContent (TCHAR *szBuf, int numOfLine);
 
 	void fnAddContent (TCHAR *szBuf);
+	read_only_edit();
 };
 /****************************************************************/
 TCHAR *MultiToWide(char *multi);

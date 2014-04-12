@@ -22,7 +22,7 @@ public:
 
 	DWORD NumOfValue;
 
-	CDataBase (DWORD Num);
+	CDataBase (DWORD Num = 2);
 	~CDataBase ();
 
 	void ConstructNOV (SQLWCHAR * szConstr);
@@ -31,7 +31,7 @@ public:
 
 	void DataBaseFree();
 
-	void SaveToDataBase (HWND hwnd, int NumOfValue, TCHAR ValueName[5][20]);
+	void SaveToDataBase (HWND hwnd, int NumOfValue, TCHAR szBuf[5][20]);
 
 	int inquireDB(HWND hwnd, TCHAR *ValName, TCHAR *SubName);
 

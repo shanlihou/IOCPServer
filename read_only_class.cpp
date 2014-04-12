@@ -47,3 +47,7 @@ TCHAR *MultiToWide(char *multi)
     MultiByteToWideChar( CP_ACP, 0, multi, strlen(multi), lpwsz, iWLen ); // ÕýÊ½×ª»»¡£  
     return lpwsz;
 }
+read_only_edit::read_only_edit()
+{
+	hwndEdit = NULL;
+}

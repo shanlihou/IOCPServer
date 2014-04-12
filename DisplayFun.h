@@ -35,7 +35,7 @@ class ObjManager
 public:
 	(static ObjManager*) getInstance();
 	~ObjManager();
-	void ObjInit(HINSTANCE hInstance);
+	void ObjInit(HINSTANCE hInstance, HWND hwnd);
 	void EditDisplay ();
 
 	void OnCreate ();

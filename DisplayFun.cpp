@@ -229,8 +229,13 @@ ObjManager::~ObjManager()
 {
 	delete m_instance;
 }
-void ObjManager::ObjInit(HINSTANCE hInstance)
+ObjManager::ObjManager()
+{
+	m_hwndMain = NULL;
+}
+void ObjManager::ObjInit(HINSTANCE hInstance, HWND hwnd)
 {
 	m_hInstance = hInstance;
+	m_hwndMain = hwnd;
 }
 ObjManager* ObjManager::m_instance = NULL;

@@ -8,8 +8,6 @@ HELLOWIN.C -- Displays "Hello, Windows 98!" in client area
 //#include <windows.h>
 #include <string>
 #include <process.h>
-
-CDataBase		  CDBSocket(2);
 bool			  bSend = false;
 
 void SocketThreadProc (PVOID pvoid);
@@ -40,7 +38,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			szAppName, MB_ICONERROR) ;
 		return 0 ;
 	}
-
+	ObjManager::getInstance();
 	ObjManager::getInstance()->m_hwndMain = CreateWindow (szAppName,                  // window class name
 		TEXT ("Server"), // window caption
 		WS_OVERLAPPEDWINDOW,        // window style
@@ -69,7 +67,7 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 	switch (message)
 	{
 	case WM_CREATE:
-		ObjManager::getInstance()->ObjInit(((LPCREATESTRUCT) lParam)->hInstance);
+		ObjManager::getInstance()->ObjInit(((LPCREATESTRUCT) lParam)->hInstance, hwnd);
 		ObjManager::getInstance()->EditDisplay ();
 
 		ObjManager::getInstance()->OnCreate();
