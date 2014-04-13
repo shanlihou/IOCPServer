@@ -1,10 +1,12 @@
 #ifndef DISPLAYFUN_H
 #define DISPLAYFUN_H
-#include <Windows.h>
+
+#include "IOCP.h"
 
 #include <vector>
 #include "read_only_class.h"
 #include "AccessManager.h"
+
 enum EDIT_ID
 {
 	ID_EDIT_VALUE1 = 1,
@@ -29,7 +31,13 @@ enum EDIT_ID
 	ID_RECV_FILE,
 	ID_RECV_INQUIRE
 };
-
+struct CQuery
+{
+public:
+	TCHAR* valueName;
+	TCHAR* subName;
+	bool bState;
+};
 class ObjManager
 {
 public:
@@ -43,6 +51,8 @@ public:
 	void OnPaint ();
 
 	void OnCommand (WPARAM wParam, LPARAM lParam);
+
+	static void IOCPThread(PVOID pvoid);
 
 	std::vector<read_only_edit> m_edit;
 	HWND m_hwndMain;

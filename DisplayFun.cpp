@@ -1,6 +1,5 @@
 #include "DisplayFun.h"
 #include <process.h>
-
 void ObjManager::EditDisplay ()
 {
 	read_only_edit edit;
@@ -164,6 +163,7 @@ void ObjManager::OnCreate ()
 		m_hInstance, NULL);
 	m_button.push_back(button);
 	SendMessage(m_hwndMain, WM_COMMAND, ID_ASSIGN, NULL);
+	_beginthread(IOCPThread, 0, NULL);
 }
 void ObjManager::OnCommand (WPARAM wParam, LPARAM lParam)
 {
@@ -213,7 +213,13 @@ void ObjManager::OnCommand (WPARAM wParam, LPARAM lParam)
 	case ID_SEND:
 		break;
 	case ID_RECV_FILE:
+		m_CDBSocket.DataBaseInit (m_hwndMain);
 
+		((CQuery*)lParam)->bState = m_CDBSocket.inquireDB(m_hwndMain, ((CQuery *)lParam)->valueName, ((CQuery *)lParam)->subName);
+
+		m_CDBSocket.DataBaseFree ();
+		break;
+	case ID_RECV_INQUIRE:
 		break;
 	}
 }
@@ -237,5 +243,15 @@ void ObjManager::ObjInit(HINSTANCE hInstance, HWND hwnd)
 {
 	m_hInstance = hInstance;
 	m_hwndMain = hwnd;
+}
+void ObjManager::IOCPThread(PVOID pvoid)
+{
+	CIOCP iocp;
+
+	if( !iocp.Init() )
+	{
+	}
+
+	iocp.MainLoop();
 }
 ObjManager* ObjManager::m_instance = NULL;

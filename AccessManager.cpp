@@ -124,7 +124,7 @@ int CDataBase::inquireDB (HWND hwnd, TCHAR *ValName, TCHAR *SubName)
 	memset(sql, 0, sizeof(SQLWCHAR) * 255);
 	DWORD result;
 	
-	wsprintf (sql, TEXT("select %s from %s where %s = '%s'"), SubName, ListName, SubName, ValName);
+	wsprintf (sql, TEXT("select %s from %s where %s = %s"), SubName, ListName, SubName, ValName);
 
     result = SQLPrepare (hstmt, (SQLWCHAR*) sql, SQL_NTS);
 

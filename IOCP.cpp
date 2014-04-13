@@ -319,7 +319,6 @@ BOOL CIOCP::DataAction(IOCP_IO_PTR lp_io, IOCP_KEY_PTR lp_key )
 	case IOCP_WRITE:
 		{
 			cout<<"post a write data!---------------------------------------"<<endl;
-			strcpy(lp_io->buf, "hello");
 			nRet = WSASend(
 				lp_io->socket, 
 				&lp_io->wsaBuf,
@@ -858,8 +857,19 @@ DWORD CIOCP::CompletionRoutine(LPVOID lp_param)
 				}
 				cout<<"shanlihou:"<<lp_io->buf<<endl;
 				TCHAR *WideSend = MultiToWide(lp_io->buf);
-				ObjManager::getInstance()->m_edit[12].fnAddContent(L"收到:\n");
+				ObjManager::getInstance()->m_edit[12].fnAddContent(L"\n收到:\n");
 				ObjManager::getInstance()->m_edit[12].fnAddContent(WideSend);
+				CQuery query;
+				query.bState = 0;
+				query.subName = L"学号";
+				query.valueName = WideSend;
+				SendMessage(ObjManager::getInstance()->m_hwndMain, WM_COMMAND, ID_RECV_FILE, (LPARAM)&query);
+				if(query.bState)
+				{
+					strcpy(lp_io->buf, "true");
+				}
+				else
+					strcpy(lp_io->buf, "false");
 				delete []WideSend;
 
 

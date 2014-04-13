@@ -2,15 +2,13 @@
 HELLOWIN.C -- Displays "Hello, Windows 98!" in client area
 (c) Charles Petzold, 1998
 ------------------------------------------------------------*/
-#include"read_only_class.h"
+
 #include "DisplayFun.h"
+#include"read_only_class.h"
 #include "AccessManager.h"
 //#include <windows.h>
 #include <string>
-#include <process.h>
 bool			  bSend = false;
-
-void SocketThreadProc (PVOID pvoid);
 
 LRESULT CALLBACK WndProc (HWND, UINT, WPARAM, LPARAM) ;
 
